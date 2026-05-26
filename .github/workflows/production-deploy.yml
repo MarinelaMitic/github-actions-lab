@@ -1,0 +1,13 @@
+name: Production Deploy
+
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy u produkciju
+        env:
+          KEY: ${{ secrets.DEPLOY_KEY }}
+        run: echo "Deployujem u produkciju..."
