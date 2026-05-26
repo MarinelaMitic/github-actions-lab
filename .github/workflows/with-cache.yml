@@ -1,16 +1,22 @@
-name: Sa Kesom
-on: workflow_dispatch
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
+steps:
       - uses: actions/checkout@v4
-      - name: Postavi Node.js s kesom
+
+      - name: Postavi Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"  
+          # Ovdje VIŠE NE pišete cache: "npm" jer prelazimo na ručno
+
+      - name: Keširaj node_modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
       - name: Instaliraj zavisnosti
         run: npm ci
+
       - name: Pokreni testove
         run: npm test
