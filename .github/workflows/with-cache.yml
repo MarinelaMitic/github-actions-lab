@@ -1,12 +1,15 @@
-steps:
+name: Sa Kesom
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
-
       - name: Postavi Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          # Ovdje VIŠE NE pišete cache: "npm" jer prelazimo na ručno
-
+      
       - name: Keširaj node_modules
         uses: actions/cache@v4
         with:
@@ -17,6 +20,5 @@ steps:
 
       - name: Instaliraj zavisnosti
         run: npm ci
-
       - name: Pokreni testove
         run: npm test
